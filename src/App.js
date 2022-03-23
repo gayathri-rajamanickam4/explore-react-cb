@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import NewPost from './components/new-post';
+import Posts from './components/posts';
+import client from './lib/client';
+// import Folder from './components/folder';
+// import folderDetails from './data/folder-details';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      {/* <Folder folderDetails={folderDetails}></Folder> */}
+      <ApolloProvider client={client}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/'>
+              <Posts />
+            </Route>
+            <Route path='/new'>
+              <NewPost />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </ApolloProvider>
     </div>
   );
 }
